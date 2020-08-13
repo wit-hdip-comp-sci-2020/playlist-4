@@ -55,6 +55,19 @@ const playlistStore = {
     const songs = playlist.songs;
     _.remove(songs, { id: songId });
     this.store.save();
+  },
+
+  getSong(id, songId) {
+    const playList = this.store.findOneBy(this.collection, { id: id });
+    const songs = playList.songs.filter(song => song.id == songId);
+    return songs[0];
+  },
+
+  updateSong(song, updatedSong) {
+    song.title = updatedSong.title;
+    song.artist = updatedSong.artist;
+    song.duration = updatedSong.duration;
+    this.store.save();
   }
 };
 
